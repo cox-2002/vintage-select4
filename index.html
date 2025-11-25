@@ -1,0 +1,764 @@
+
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>VINTAGE SELECT</title>
+  <style>
+:root {
+  --bg: #ffffff;
+  --fg: #111111;
+  --muted: #777777;
+  --border: #e5e5e5;
+  --accent: #111111;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: -apple-system, BlinkMacSystemFont, "Roboto", "Noto Sans JP",
+               system-ui, "Helvetica Neue", Arial, sans-serif;
+}
+a { color: inherit; text-decoration: none; }
+.header {
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  z-index: 10;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px;
+}
+.brand {
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  font-size: 14px;
+}
+.tagline {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.muted { color: var(--muted); }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #ffffff;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.12s ease-out, box-shadow 0.12s ease-out;
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+}
+.card img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  background: #f8f8f8;
+}
+.card .pad { padding: 8px; }
+.card-title {
+  margin: 4px 0 4px;
+  font-weight: 600;
+  line-height: 1.4;
+  font-size: 12px;
+}
+.price {
+  font-weight: 700;
+  font-size: 13px;
+}
+.section-title {
+  margin: 24px 0 8px;
+  font-weight: 700;
+  font-size: 14px;
+}
+.footer {
+  border-top: 1px solid var(--border);
+  margin-top: 32px;
+}
+.footer-inner {
+  padding: 16px 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+.category-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 12px 0 18px;
+  border-bottom: 1px solid var(--border);
+}
+.tab-btn {
+  border: none;
+  background: transparent;
+  padding: 4px 6px 8px;
+  font-size: 12px;
+  color: var(--muted);
+  cursor: pointer;
+}
+.tab-btn.active {
+  color: var(--fg);
+  border-bottom: 2px solid var(--fg);
+}
+@media (max-width: 768px) {
+  .container { padding: 12px; }
+  .grid { gap: 6px; }
+  .card .pad { padding: 6px; }
+  .card-title { font-size: 11px; }
+  .price { font-size: 12px; }
+}
+.detail-card {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: #ffffff;
+  padding: 16px;
+}
+.detail-image-wrap {
+  flex: 1;
+}
+.detail-image-wrap img {
+  width: 100%;
+  max-height: 520px;
+  object-fit: contain;
+  border-radius: 12px;
+  background: #f8f8f8;
+}
+.detail-main {
+  flex: 1;
+}
+.badge {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  margin-right: 6px;
+  margin-bottom: 4px;
+}
+.detail-title {
+  margin: 8px 0 6px;
+  font-size: 18px;
+  font-weight: 600;
+}
+.detail-price {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.btn {
+  display: inline-block;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--fg);
+  font-size: 13px;
+  text-align: center;
+  margin: 8px 0 12px;
+}
+.detail-desc {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+@media (max-width: 900px) {
+  .detail-card {
+    flex-direction: column;
+    padding: 12px;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="container">
+      <div class="brand">VINTAGE SELECT</div>
+      <div class="tagline">VINTAGE SELECT — 厳選ヴィンテージ、確かな一着だけ。</div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="category-tabs">
+      
+        <button class="tab-btn active" data-tab="all">
+          すべて
+        </button>
+      
+        <button class="tab-btn" data-tab="t-shirt">
+          Tシャツ
+        </button>
+      
+        <button class="tab-btn" data-tab="shirt">
+          シャツ
+        </button>
+      
+        <button class="tab-btn" data-tab="jacket">
+          ジャケット
+        </button>
+      
+        <button class="tab-btn" data-tab="blazer">
+          テーラード
+        </button>
+      
+        <button class="tab-btn" data-tab="coat">
+          コート
+        </button>
+      
+        <button class="tab-btn" data-tab="denim">
+          デニム
+        </button>
+      
+        <button class="tab-btn" data-tab="sweat">
+          スウェット
+        </button>
+      
+        <button class="tab-btn" data-tab="hoodie">
+          パーカー
+        </button>
+      
+        <button class="tab-btn" data-tab="jersey">
+          ユニフォーム
+        </button>
+      
+        <button class="tab-btn" data-tab="pants">
+          パンツ
+        </button>
+      
+        <button class="tab-btn" data-tab="shorts">
+          ショーツ
+        </button>
+      
+        <button class="tab-btn" data-tab="cap">
+          キャップ
+        </button>
+      
+        <button class="tab-btn" data-tab="other">
+          その他
+        </button>
+      
+    </div>
+
+    <div class="grid" id="item-grid">
+      
+        <a class="card" href="item_60s-pendleton-wool-board-shirt---vintage--------ombre--shadow--check--60-811300.html" data-cat="shirt">
+          
+            <img
+              src="https://baseec-img-mng.akamaized.net/images/item/origin/e6a1349e660cf370c6034eadd40c6354.jpg?imformat=generic&q=90&im=Resize,width=640,height=640,aspect=fill,type=downsize;Crop,width=640,height=640,gravity=Center"
+              referrerpolicy="no-referrer"
+              loading="eager"
+            />
+          
+          <div class="pad">
+            <div class="card-title">60s PENDLETON Wool Board Shirt / vintage ビンテージ ヴィンテージ 古着 ペンドルトン ウール ボード シャツ ombre オンブレ shadow シャドウ check チェック 60 年代</div>
+            <div class="price">¥79,200</div>
+          </div>
+        </a>
+      
+        <a class="card" href="item_60s-pendleton-wool-board-shirt--ombre-plaid----vintage---------shadow--check---b-832465.html" data-cat="shirt">
+          
+            <img
+              src="https://baseec-img-mng.akamaized.net/images/item/origin/1763e7edeacc4ab0db61cfec5a1b17f9.jpg?imformat=generic&q=90&im=Resize,width=640,height=640,aspect=fill,type=downsize;Crop,width=640,height=640,gravity=Center"
+              referrerpolicy="no-referrer"
+              loading="eager"
+            />
+          
+          <div class="pad">
+            <div class="card-title">60s PENDLETON Wool Board Shirt “ Ombre Plaid ” / vintage ビンテージ ヴィンテージ 古着 ペンドルトン ウール ボード シャツ オンブレ shadow シャドウ check チェック 柄 blue 青 60 年代</div>
+            <div class="price">¥66,000</div>
+          </div>
+        </a>
+      
+        <a class="card" href="item_2006s-eazy-e-t-shirt---vintage----eazy-e-nwa-dr-dre-icecube-rap--t-hip-hop-90-00-860160.html" data-cat="t-shirt">
+          
+            <img
+              src="https://baseec-img-mng.akamaized.net/images/item/origin/954817616d50a3361bf95bb06f278d2b.jpg?imformat=generic&q=90&im=Resize,width=640,height=640,aspect=fill,type=downsize;Crop,width=640,height=640,gravity=Center"
+              referrerpolicy="no-referrer"
+              loading="eager"
+            />
+          
+          <div class="pad">
+            <div class="card-title">2006s EAZY-E T-Shirt / vintage ビンテージ ヴィンテージ 古着 EAZY E NWA Dr Dre Icecube rap ラップ Tシャツ Hip Hop 90 00 年代 ruthless records ルースレス レコード black 黒 fade 炭黒 L XL tupack 2pack</div>
+            <div class="price">¥58,300</div>
+          </div>
+        </a>
+      
+        <a class="card" href="item_50s-pendleton--shadow-plaid--wool-board-shirt---vintage---------ombre--check---s-587743.html" data-cat="shirt">
+          
+            <img
+              src="https://baseec-img-mng.akamaized.net/images/item/origin/f9e23c54d1b5c0f012dc149a2f0aeacb.jpg?imformat=generic&q=90&im=Resize,width=640,height=640,aspect=fill,type=downsize;Crop,width=640,height=640,gravity=Center"
+              referrerpolicy="no-referrer"
+              loading="eager"
+            />
+          
+          <div class="pad">
+            <div class="card-title">50s PENDLETON “ Shadow Plaid ” Wool Board Shirt / vintage ビンテージ ヴィンテージ 古着 ペンドルトン ウール ボード シャツ シャドウ ombre オンブレ check チェック 柄 Size L Blue 青 50 年代</div>
+            <div class="price">¥66,000</div>
+          </div>
+        </a>
+      
+        <a class="card" href="item_50s-made-in-california-rayon-shirt--turquoise-blue----vintage---------plain-colo-305137.html" data-cat="shirt">
+          
+            <img
+              src="https://baseec-img-mng.akamaized.net/images/item/origin/f7e6c40f7f282be44152ff43e7bb8176.jpg?imformat=generic&q=90&im=Resize,width=640,height=640,aspect=fill,type=downsize;Crop,width=640,height=640,gravity=Center"
+              referrerpolicy="no-referrer"
+              loading="eager"
+            />
+          
+          <div class="pad">
+            <div class="card-title">50s MADE IN California Rayon Shirt “ Turquoise Blue ” / vintage ビンテージ ヴィンテージ 古着 レーヨン シャツ ターコイズ ブルー 単色 Plain color 開襟 open collar 50 年代 カリフォルニア</div>
+            <div class="price">¥77,000</div>
+          </div>
+        </a>
+      
+        <a class="card" href="item_60-039-s-70-039-s-levi-039-s-501--big-e-type-s-w32---e-vintage--126ko-336297.html" data-cat="denim">
+          
+            <img
+              src="https://baseec-img-mng.akamaized.net/images/item/origin/ce8e6455d3cd36f4bff4bfb1034878d4.jpg?imformat=generic&q=90&im=Resize,width=640,height=640,aspect=fill,type=downsize;Crop,width=640,height=640,gravity=Center"
+              referrerpolicy="no-referrer"
+              loading="eager"
+            />
+          
+          <div class="pad">
+            <div class="card-title">60&#039;s 70&#039;s Levi&#039;s 501 デニム Big E Type-S 実寸W32 リーバイス タイプ物 ビッグE vintage ヴィンテージ 126KO</div>
+            <div class="price">¥229,000</div>
+          </div>
+        </a>
+      
+        <a class="card" href="item_90s-carhartt-detroit-jacket---vintage-------size-6blj-camel-brown----fade--mos-369759.html" data-cat="jacket">
+          
+            <img
+              src="https://baseec-img-mng.akamaized.net/images/item/origin/b7aa48556357df018c70679a1de05a14.jpg?imformat=generic&q=90&im=Resize,width=640,height=640,aspect=fill,type=downsize;Crop,width=640,height=640,gravity=Center"
+              referrerpolicy="no-referrer"
+              loading="eager"
+            />
+          
+          <div class="pad">
+            <div class="card-title">90s Carhartt Detroit Jacket / vintage ビンテージ ヴィンテージ 古着 カーハート デトロイト ジャケット Size 6BLJ camel brown キャメル ブラウン フェード fade 年代 mos モス</div>
+            <div class="price">¥77,000</div>
+          </div>
+        </a>
+      
+        <a class="card" href="item_60-039-s-70-039-s-levi-039-s-501--big-e-type-s-w30---e-vintage--125ko-687746.html" data-cat="denim">
+          
+            <img
+              src="https://baseec-img-mng.akamaized.net/images/item/origin/833666f36eabdb30a40b84691eaf4849.jpg?imformat=generic&q=90&im=Resize,width=640,height=640,aspect=fill,type=downsize;Crop,width=640,height=640,gravity=Center"
+              referrerpolicy="no-referrer"
+              loading="eager"
+            />
+          
+          <div class="pad">
+            <div class="card-title">60&#039;s 70&#039;s Levi&#039;s 501 デニム Big E Type-S 実寸W30 リーバイス タイプ物 ビッグE vintage ヴィンテージ 125KO</div>
+            <div class="price">¥199,000</div>
+          </div>
+        </a>
+      
+        <a class="card" href="item_60-039-s-70-039-s-levi-039-s--505-42talon-big-e-w30-v---usa---vintage--145ko-550575.html" data-cat="denim">
+          
+            <img
+              src="https://baseec-img-mng.akamaized.net/images/item/origin/4826a9e371f4b6360d69cb5a9989c232.jpg?imformat=generic&q=90&im=Resize,width=640,height=640,aspect=fill,type=downsize;Crop,width=640,height=640,gravity=Center"
+              referrerpolicy="no-referrer"
+              loading="lazy"
+            />
+          
+          <div class="pad">
+            <div class="card-title">60&#039;s 70&#039;s Levi&#039;s  505 42TALON BIG-E W30程 不均等V ヴィンテージ  USA 耳付き バックポケット裏シングル vintage ヴィンテージ 145KO</div>
+            <div class="price">¥179,000</div>
+          </div>
+        </a>
+      
+        <a class="card" href="item_80s-dickies-small-tag-two-tuck-work-pants--black----vintage-----874------usa-945289.html" data-cat="pants">
+          
+            <img
+              src="https://baseec-img-mng.akamaized.net/images/item/origin/90b33de073266b3c67b3d03d491190fc.jpg?imformat=generic&q=90&im=Resize,width=640,height=640,aspect=fill,type=downsize;Crop,width=640,height=640,gravity=Center"
+              referrerpolicy="no-referrer"
+              loading="lazy"
+            />
+          
+          <div class="pad">
+            <div class="card-title">80s Dickies Small Tag Two Tuck Work Pants “ Black ” / vintage ビンテージ ヴィンテージ 古着 ディッキーズ 874 ワーク パンツ チビタグ アルミジップ 黒 USA アメリカ 製</div>
+            <div class="price">¥44,000</div>
+          </div>
+        </a>
+      
+        <a class="card" href="item_70s-levis-70505-cere-tag-small-e-denim-jacket---vintage-----trucker----557-507-5-879351.html" data-cat="jacket">
+          
+            <img
+              src="https://baseec-img-mng.akamaized.net/images/item/origin/2e2e77541a3a343478ca5cc81155b583.jpg?imformat=generic&q=90&im=Resize,width=640,height=640,aspect=fill,type=downsize;Crop,width=640,height=640,gravity=Center"
+              referrerpolicy="no-referrer"
+              loading="lazy"
+            />
+          
+          <div class="pad">
+            <div class="card-title">70s Levi’s 70505 Cere Tag Small e Denim Jacket / vintage ビンテージ ヴィンテージ 古着 リーバイス trucker トラッカー デニム ジャケット 557 507 506 XX dark color ダーク カラー ハチノス ケアタグ 42 44 濃紺 70 年代</div>
+            <div class="price">¥64,900</div>
+          </div>
+        </a>
+      
+        <a class="card" href="item_60s-jantzen-mohair-cardigan---vintage----------shaggy---curt-cobain---nirvana--g-515110.html" data-cat="other">
+          
+            <img
+              src="https://baseec-img-mng.akamaized.net/images/item/origin/a6e4df6bfa4c0a6eee4636159ebfcf49.jpg?imformat=generic&q=90&im=Resize,width=640,height=640,aspect=fill,type=downsize;Crop,width=640,height=640,gravity=Center"
+              referrerpolicy="no-referrer"
+              loading="lazy"
+            />
+          
+          <div class="pad">
+            <div class="card-title">60s jantzen Mohair Cardigan / vintage ビンテージ ヴィンテージ 古着 ジャンセン モヘア カーディガン 毛足 長 シャギー shaggy 単色 肉厚 curt cobain カート コバーン nirvana ニルヴァーナ grunge グランジ</div>
+            <div class="price">¥95,700</div>
+          </div>
+        </a>
+      
+        <a class="card" href="item_60s-derby-jacket---vintage----of-san-francisco----size-40-old-english-tag-----na-650917.html" data-cat="t-shirt">
+          
+            <img
+              src="https://baseec-img-mng.akamaized.net/images/item/origin/556f47b9c31893ffbfa2495112a5d3b4.jpg?imformat=generic&q=90&im=Resize,width=640,height=640,aspect=fill,type=downsize;Crop,width=640,height=640,gravity=Center"
+              referrerpolicy="no-referrer"
+              loading="lazy"
+            />
+          
+          <div class="pad">
+            <div class="card-title">60s Derby Jacket / vintage ビンテージ ヴィンテージ 古着 of san Francisco ダービー ジャケット サンフランシスコ Size 40 old English tag オールド タグ キムタク 木村拓哉 navy ネイビー</div>
+            <div class="price">¥44,000</div>
+          </div>
+        </a>
+      
+        <a class="card" href="item_70s-pioneer-wool-shirt--shadow-plaid----vintage-----board----check--ombre--black-41565.html" data-cat="shirt">
+          
+            <img
+              src="https://baseec-img-mng.akamaized.net/images/item/origin/176fb1a20cb310d4f15c62dd9ab89991.jpg?imformat=generic&q=90&im=Resize,width=640,height=640,aspect=fill,type=downsize;Crop,width=640,height=640,gravity=Center"
+              referrerpolicy="no-referrer"
+              loading="lazy"
+            />
+          
+          <div class="pad">
+            <div class="card-title">70s PIONEER Wool Shirt “ Shadow Plaid ” / vintage ビンテージ ヴィンテージ 古着 ウール board ボード シャツ シャドウ check チェック ombre オンブレ black 黒 blue 青 70 60 年代</div>
+            <div class="price">¥55,000</div>
+          </div>
+        </a>
+      
+        <a class="card" href="item_50s-levis-501-typea-885370.html" data-cat="other">
+          
+            <img
+              src="https://baseec-img-mng.akamaized.net/images/item/origin/1df4b78c2ceaa93d77cc79b35fa21cfc.jpg?imformat=generic&q=90&im=Resize,width=640,height=640,aspect=fill,type=downsize;Crop,width=640,height=640,gravity=Center"
+              referrerpolicy="no-referrer"
+              loading="lazy"
+            />
+          
+          <div class="pad">
+            <div class="card-title">50s levis 501 typeA</div>
+            <div class="price">¥1,000,000</div>
+          </div>
+        </a>
+      
+        <a class="card" href="item_1991s-the-addams-family-t-shirt--uncle-fester----vintage----movie--t-----wednesd-528601.html" data-cat="t-shirt">
+          
+            <img
+              src="https://baseec-img-mng.akamaized.net/images/item/origin/1572dc1c77b801d9ff6e882c800445dc.jpg?imformat=generic&q=90&im=Resize,width=640,height=640,aspect=fill,type=downsize;Crop,width=640,height=640,gravity=Center"
+              referrerpolicy="no-referrer"
+              loading="lazy"
+            />
+          
+          <div class="pad">
+            <div class="card-title">1991s The Addams Family T-Shirt “ uncle fester ” / vintage ビンテージ ヴィンテージ 古着 movie 映画 Tシャツ アダムス ファミリー フェスター おじさん Wednesday ウェンズデー 90 年代 black 黒 fade フェード XL DELTA USA アメリカ 製</div>
+            <div class="price">¥66,000</div>
+          </div>
+        </a>
+      
+        <a class="card" href="item_60s-mohair-cardigan---vintage--------navy--60--jantzen-campus-curt-cobain-821661.html" data-cat="other">
+          
+            <img
+              src="https://baseec-img-mng.akamaized.net/images/item/origin/92353ea6ab36ac2b466470ccf7dc5991.jpg?imformat=generic&q=90&im=Resize,width=640,height=640,aspect=fill,type=downsize;Crop,width=640,height=640,gravity=Center"
+              referrerpolicy="no-referrer"
+              loading="lazy"
+            />
+          
+          <div class="pad">
+            <div class="card-title">60s Mohair Cardigan / vintage ビンテージ ヴィンテージ 古着 モヘア カーディガン 毛足 長 navy ネイビー 60 年代 jantzen campus curt cobain カート コバーン</div>
+            <div class="price">¥77,000</div>
+          </div>
+        </a>
+      
+        <a class="card" href="item_90s-disney-tee-shirt-730752.html" data-cat="t-shirt">
+          
+            <img
+              src="https://baseec-img-mng.akamaized.net/images/item/origin/4b02051b956e6eb8ce75472b9ce2d58d.jpg?imformat=generic&q=90&im=Resize,width=640,height=640,aspect=fill,type=downsize;Crop,width=640,height=640,gravity=Center"
+              referrerpolicy="no-referrer"
+              loading="lazy"
+            />
+          
+          <div class="pad">
+            <div class="card-title">90s Disney Tee Shirt</div>
+            <div class="price">¥44,000</div>
+          </div>
+        </a>
+      
+        <a class="card" href="item_90s-hunterhunter-99894.html" data-cat="other">
+          
+            <img
+              src="https://baseec-img-mng.akamaized.net/images/item/origin/8f483b7ba6bfe8d991e0a7e9d00e8c91.jpg?imformat=generic&q=90&im=Resize,width=640,height=640,aspect=fill,type=downsize;Crop,width=640,height=640,gravity=Center"
+              referrerpolicy="no-referrer"
+              loading="lazy"
+            />
+          
+          <div class="pad">
+            <div class="card-title">90s Hunter×Hunter</div>
+            <div class="price">¥100,000</div>
+          </div>
+        </a>
+      
+        <a class="card" href="item_80s-cal-craft-corduroy-boa-jacket--black----vintage------california---boa----l-8-199502.html" data-cat="jacket">
+          
+            <img
+              src="https://baseec-img-mng.akamaized.net/images/item/origin/273c59e762e56981d42cae1f70d123cf.jpg?imformat=generic&q=90&im=Resize,width=640,height=640,aspect=fill,type=downsize;Crop,width=640,height=640,gravity=Center"
+              referrerpolicy="no-referrer"
+              loading="lazy"
+            />
+          
+          <div class="pad">
+            <div class="card-title">80s Cal Craft Corduroy Boa Jacket “ Black ” / vintage ビンテージ ヴィンテージ 古着 カル クラフト California カリフォルニア コーデュロイ boa ボア ジャケット 黒 L 80 年代</div>
+            <div class="price">¥66,000</div>
+          </div>
+        </a>
+      
+        <a class="card" href="item_90s-evangelion-190030.html" data-cat="other">
+          
+            <img
+              src="https://baseec-img-mng.akamaized.net/images/item/origin/87f7767b20218f437e57630d22178372.jpg?imformat=generic&q=90&im=Resize,width=640,height=640,aspect=fill,type=downsize;Crop,width=640,height=640,gravity=Center"
+              referrerpolicy="no-referrer"
+              loading="lazy"
+            />
+          
+          <div class="pad">
+            <div class="card-title">90s EVANGELION</div>
+            <div class="price">¥158,000</div>
+          </div>
+        </a>
+      
+        <a class="card" href="item_70-039-s-levi-039-s-501-big-e-6-r--w30---70s--vintage--020ko-874164.html" data-cat="denim">
+          
+            <img
+              src="https://baseec-img-mng.akamaized.net/images/item/origin/09af3cc000056e42c296f97162ac433a.jpg?imformat=generic&q=90&im=Resize,width=640,height=640,aspect=fill,type=downsize;Crop,width=640,height=640,gravity=Center"
+              referrerpolicy="no-referrer"
+              loading="lazy"
+            />
+          
+          <div class="pad">
+            <div class="card-title">70&#039;s Levi&#039;s 501 Big-E 刻印6 足長R 並行ステッチ W30程 リーバイス デニムパンツ 70s セルヴィッジ vintage ヴィンテージ 020KO</div>
+            <div class="price">¥159,900</div>
+          </div>
+        </a>
+      
+        <a class="card" href="item_00s-oakley-software-backpack-468969.html" data-cat="other">
+          
+            <img
+              src="https://baseec-img-mng.akamaized.net/images/item/origin/275a82315c62c97ee2b3a3132fd998af.jpg?imformat=generic&q=90&im=Resize,width=640,height=640,aspect=fill,type=downsize;Crop,width=640,height=640,gravity=Center"
+              referrerpolicy="no-referrer"
+              loading="lazy"
+            />
+          
+          <div class="pad">
+            <div class="card-title">〜00s Oakley Software Backpack</div>
+            <div class="price">¥44,000</div>
+          </div>
+        </a>
+      
+        <a class="card" href="item_1996s-levis-517-black-denim-psnts------vintage-----boots-cut------w-36-38--501-6-552575.html" data-cat="denim">
+          
+            <img
+              src="https://baseec-img-mng.akamaized.net/images/item/origin/9066dab62a2668ddbe95ef3cea07053f.jpg?imformat=generic&q=90&im=Resize,width=640,height=640,aspect=fill,type=downsize;Crop,width=640,height=640,gravity=Center"
+              referrerpolicy="no-referrer"
+              loading="lazy"
+            />
+          
+          <div class="pad">
+            <div class="card-title">1996s Levi’s 517 Black Denim Psnts “ 先染め ” / vintage ビンテージ ヴィンテージ 古着 リーバイス boots cut ブーツカット ブラック 黒 デニム パンツ W 36 38 後染め 501 646 orange tab オレンジ タブ</div>
+            <div class="price">¥55,000</div>
+          </div>
+        </a>
+      
+        <a class="card" href="item_7-80s-nike-half-zip-parke-579454.html" data-cat="other">
+          
+            <img
+              src="https://baseec-img-mng.akamaized.net/images/item/origin/e1d30c0e4d0b7ec805393c8facf65a1e.jpg?imformat=generic&q=90&im=Resize,width=640,height=640,aspect=fill,type=downsize;Crop,width=640,height=640,gravity=Center"
+              referrerpolicy="no-referrer"
+              loading="lazy"
+            />
+          
+          <div class="pad">
+            <div class="card-title">7-80s Nike Half Zip Parke</div>
+            <div class="price">¥44,800</div>
+          </div>
+        </a>
+      
+        <a class="card" href="item_50-039-s-bowler-039-s----50s--vintage---usa-161ko-975068.html" data-cat="jacket">
+          
+            <img
+              src="https://baseec-img-mng.akamaized.net/images/item/origin/fe43e36874322780e6a8e6c3f585b4ae.jpg?imformat=generic&q=90&im=Resize,width=640,height=640,aspect=fill,type=downsize;Crop,width=640,height=640,gravity=Center"
+              referrerpolicy="no-referrer"
+              loading="lazy"
+            />
+          
+          <div class="pad">
+            <div class="card-title">50&#039;s BOWLER&#039;S サテンジャケット フリーメイソン シュライナー 50s ヴィンテージ vintage ロカビリー  USA 161KO</div>
+            <div class="price">¥59,900</div>
+          </div>
+        </a>
+      
+        <a class="card" href="item_2007s-carhartt-detroit-jacket--j97-mos---medium----vintage-------mossgreen--2000-185524.html" data-cat="jacket">
+          
+            <img
+              src="https://baseec-img-mng.akamaized.net/images/item/origin/e99087c62546131a63c242c5ebb44395.jpg?imformat=generic&q=90&im=Resize,width=640,height=640,aspect=fill,type=downsize;Crop,width=640,height=640,gravity=Center"
+              referrerpolicy="no-referrer"
+              loading="lazy"
+            />
+          
+          <div class="pad">
+            <div class="card-title">2007s Carhartt Detroit Jacket “ J97 MOS , Medium ” / vintage ビンテージ ヴィンテージ 古着 カーハート デトロイト ジャケット mossgreen モスグリーン 2000 年代 Johnny Depp ジョニー デップ</div>
+            <div class="price">¥121,000</div>
+          </div>
+        </a>
+      
+        <a class="card" href="item_1995s-levis-505-black-denim-pants---vintage----------fade--w-35-l-29----size--90-302200.html" data-cat="denim">
+          
+            <img
+              src="https://baseec-img-mng.akamaized.net/images/item/origin/b4736e9087db11584c8424b3823c6c9c.jpg?imformat=generic&q=90&im=Resize,width=640,height=640,aspect=fill,type=downsize;Crop,width=640,height=640,gravity=Center"
+              referrerpolicy="no-referrer"
+              loading="lazy"
+            />
+          
+          <div class="pad">
+            <div class="card-title">1995s Levi’s 505 Black Denim Pants / vintage ビンテージ ヴィンテージ 古着 リーバイス 先染め ブラック デニム パンツ 後染め fade フェード w 35 L 29 ヒゲ アタリ 色落ち size サイズ 90 年代</div>
+            <div class="price">¥44,000</div>
+          </div>
+        </a>
+      
+        <a class="card" href="item_50-039-s-60-039-s-levi-039-s-501-xx-55---r--vintage--991ta-676019.html" data-cat="denim">
+          
+            <img
+              src="https://baseec-img-mng.akamaized.net/images/item/origin/9d8eaaf9876e500b014f59490e909e4f.jpg?imformat=generic&q=90&im=Resize,width=640,height=640,aspect=fill,type=downsize;Crop,width=640,height=640,gravity=Center"
+              referrerpolicy="no-referrer"
+              loading="lazy"
+            />
+          
+          <div class="pad">
+            <div class="card-title">50&#039;s 60&#039;s Levi&#039;s 501 xx 55モデル デニムパンツ ギャラ入り 足長R 隠しリベット vintage ヴィンテージ 991TA</div>
+            <div class="price">¥429,000</div>
+          </div>
+        </a>
+      
+        <a class="card" href="item_90s-independent-truck-company-t-shirt---vintage----indy----skate-skateboard---ol-719204.html" data-cat="t-shirt">
+          
+            <img
+              src="https://baseec-img-mng.akamaized.net/images/item/origin/e523bd894fcdeef9e816e1739770e88a.jpg?imformat=generic&q=90&im=Resize,width=640,height=640,aspect=fill,type=downsize;Crop,width=640,height=640,gravity=Center"
+              referrerpolicy="no-referrer"
+              loading="lazy"
+            />
+          
+          <div class="pad">
+            <div class="card-title">90s INDEPENDENT TRUCK COMPANY T-Shirt / vintage ビンテージ ヴィンテージ 古着 Indy インディ インディペンデント トラック skate skateboard スケートボード スケボー old オールド L NHS タグ 旧 90 年代 size サイズ L</div>
+            <div class="price">¥42,900</div>
+          </div>
+        </a>
+      
+        <a class="card" href="item_1970-039-s-70s-levi-039-s-517-0217-2-66---vintage--001yu-778842.html" data-cat="other">
+          
+            <img
+              src="https://baseec-img-mng.akamaized.net/images/item/origin/0ad58feb8cfed3ea9d299d1cecf41416.jpg?imformat=generic&q=90&im=Resize,width=640,height=640,aspect=fill,type=downsize;Crop,width=640,height=640,gravity=Center"
+              referrerpolicy="no-referrer"
+              loading="lazy"
+            />
+          
+          <div class="pad">
+            <div class="card-title">1970&#039;s 70s Levi&#039;s 517-0217 ボタン裏2 66前期 ブーツカット リーバイス vintage ヴィンテージ 001YU</div>
+            <div class="price">¥59,900</div>
+          </div>
+        </a>
+      
+        <a class="card" href="item_1997s-curt-cobain-t-shirt---vintage------nirvana--grunge--rock--mohair--cardigan-654066.html" data-cat="t-shirt">
+          
+            <img
+              src="https://baseec-img-mng.akamaized.net/images/item/origin/4494c3afeb8dd01aa097781bf509e8c1.jpg?imformat=generic&q=90&im=Resize,width=640,height=640,aspect=fill,type=downsize;Crop,width=640,height=640,gravity=Center"
+              referrerpolicy="no-referrer"
+              loading="lazy"
+            />
+          
+          <div class="pad">
+            <div class="card-title">1997s CURT COBAIN T-Shirt / vintage ビンテージ ヴィンテージ 古着 カート コバーン NIRVANA ニルヴァーナ grunge グランジ rock ロック mohair モヘア cardigan カーディガン giant ジャイアント L 90 年代</div>
+            <div class="price">¥79,200</div>
+          </div>
+        </a>
+      
+        <a class="card" href="item_40-039-s-50-039-s-levi-039-s-501xx-47-52----40s-50s--vintage--957ta-283818.html" data-cat="denim">
+          
+            <img
+              src="https://baseec-img-mng.akamaized.net/images/item/origin/fdb3dde967fb7300b2329014ffcaf672.jpg?imformat=generic&q=90&im=Resize,width=640,height=640,aspect=fill,type=downsize;Crop,width=640,height=640,gravity=Center"
+              referrerpolicy="no-referrer"
+              loading="lazy"
+            />
+          
+          <div class="pad">
+            <div class="card-title">40&#039;s 50&#039;s Levi&#039;s 501XX 47-52 片面タブ 前期型 鉄製隠しリベット 40s 50s デニムパンツ vintage ヴィンテージ 957TA</div>
+            <div class="price">¥169,900</div>
+          </div>
+        </a>
+      
+        <a class="card" href="item_1994s-metallica--master-of-puppets--t-shirt---vintage-----band--metal--t-l-xl----33258.html" data-cat="t-shirt">
+          
+            <img
+              src="https://baseec-img-mng.akamaized.net/images/item/origin/67d6c48c3bbf14218d15360206269ba5.jpg?imformat=generic&q=90&im=Resize,width=640,height=640,aspect=fill,type=downsize;Crop,width=640,height=640,gravity=Center"
+              referrerpolicy="no-referrer"
+              loading="lazy"
+            />
+          
+          <div class="pad">
+            <div class="card-title">1994s METALLICA “ MASTER OF PUPPETS ” T-Shirt / vintage ビンテージ ヴィンテージ 古着 メタリカ band バンド metal メタル Tシャツ L XL 炭黒 フェード  fade giant 90 年代 マスター slayer megadeth Iron Maiden</div>
+            <div class="price">¥44,000</div>
+          </div>
+        </a>
+      
+    </div>
+
+    <div class="footer">
+      <div class="container footer-inner">
+        © 2025 VINTAGE SELECT — All items curated from BASE shops.
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function() {
+    const tabs = document.querySelectorAll('.tab-btn[data-tab]');
+    const cards = document.querySelectorAll('.card[data-cat]');
+    tabs.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const cat = btn.dataset.tab;
+        tabs.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        cards.forEach(card => {
+          const c = card.dataset.cat || 'other';
+          if (cat === 'all' || c === cat) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  })();
+  </script>
+</body>
+</html>
